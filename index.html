@@ -1,0 +1,234 @@
+<html>
+<head>
+	<script src="jquery.js"></script>
+	<script src="expression.js"></script>
+	<script src="liveform.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('form').liveform();
+		});
+	</script>
+	<style>
+		form > div {margin-bottom: 10px;}
+	</style>
+</head>
+<body style="width: 80%; margin: 0 auto;">
+	
+<h1>Example 1</h1>
+<p>Calculations</p>
+<form>
+	<div>
+		<label>price per item</label><br />
+		<input type="text" name="price"/>
+	</div>
+	<div>
+		<label>total items</label><br />
+		<input type="text" name="count"/>
+	</div>
+	<div>
+		<label>total price</label><br />
+		<input type="text" name="total" data-formula="int(price) * int(count)" />
+		(price * count)
+	</div>
+	<div>
+		<label>duty</label><br />
+		<input type="text" name="duty" data-formula="if(total > 0, if(total > 100, total * 0.15, 15), 0)" />
+		(15%, not less than 15)
+	</div>
+</form>
+			
+<h2>Source</h2>
+<pre>&lt;script&gt;
+	$(document).ready(function() {
+		$('form').liveform();
+	});
+&lt;/script&gt;
+&lt;form&gt;
+	&lt;div&gt;
+		&lt;label&gt;price per item&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;price&quot;/&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label&gt;total items&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;count&quot;/&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label&gt;total price&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;total&quot; data-formula=&quot;int(price) * int(count)&quot; /&gt;
+		(price * count)
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label&gt;duty&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;duty&quot; data-formula=&quot;if(total &gt; 0, if(total &gt; 100, total * 0.15, 15), 0)&quot; /&gt;
+		(15%, not less than 15)
+	&lt;/div&gt;
+&lt;/form&gt;</pre>
+			
+</body>
+</html>
+
+<h1>Example 2</h1>
+<p>Fields visibility</p>
+<form>
+	<div>
+		<label>name</label><br />
+		<input type="text" name="name"/>
+	</div>
+	<div>
+		<label>have any job?</label>
+		<input type="checkbox" name="job"/>
+	</div>
+	<div>
+		<label>specialization</label><br />
+		<input type="text" name="specialization" data-visibility="job" />
+	</div>
+</form>
+
+<h2>Source</h2>
+<pre>&lt;script&gt;
+	$(document).ready(function() {
+		$('form').liveform();
+	});
+&lt;/script&gt;
+&lt;form&gt;
+	&lt;div&gt;
+		&lt;label&gt;name&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;name&quot;/&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label&gt;have any job?&lt;/label&gt;
+		&lt;input type=&quot;checkbox&quot; name=&quot;job&quot;/&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label&gt;specialization&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;specialization&quot; data-visibility=&quot;job&quot; /&gt;
+	&lt;/div&gt;
+&lt;/form&gt;</pre>
+
+<h1>Example 3</h1>
+<p>Required fields</p>
+<form>
+	<div>
+		<label>name</label><br />
+		<input type="text" name="name"/>
+	</div>
+	<div>
+		<label>specialization</label><br />
+		<select name="specialization">
+			<option value="">--select--</option>
+			<option value="programmer">programmer</option>
+			<option value="designer">designer</option>
+			<option value="driver">driver</option>
+		</select>
+	</div>
+	<div>
+		<label>driver license</label><br />
+		<input type="text" name="license" data-required="specialization='driver'" />
+	</div>
+</form>
+
+<h2>Source</h2>
+<pre>&lt;script&gt;
+	$(document).ready(function() {
+		$('form').liveform();
+	});
+&lt;/script&gt;
+&lt;form&gt;
+	&lt;div&gt;
+		&lt;label&gt;name&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;name&quot;/&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label&gt;specialization&lt;/label&gt;&lt;br /&gt;
+		&lt;select name=&quot;specialization&quot;&gt;
+			&lt;option value=&quot;&quot;&gt;--select--&lt;/option&gt;
+			&lt;option value=&quot;programmer&quot;&gt;programmer&lt;/option&gt;
+			&lt;option value=&quot;designer&quot;&gt;designer&lt;/option&gt;
+			&lt;option value=&quot;driver&quot;&gt;driver&lt;/option&gt;
+		&lt;/select&gt;
+	&lt;/div&gt;
+	&lt;div&gt;
+		&lt;label&gt;driver license&lt;/label&gt;&lt;br /&gt;
+		&lt;input type=&quot;text&quot; name=&quot;license&quot; data-required=&quot;specialization='driver'&quot; /&gt;
+	&lt;/div&gt;
+&lt;/form&gt;</pre>
+
+<h1>Options</h1>
+<table border="1" cellpadding="10">
+	<tr>
+		<td>
+			Option
+		</td>
+		<td>
+			Type
+		</td>
+		<td>
+			Description
+		</td>
+	</tr>
+	<tr>
+		<td>
+			inputcontainer
+		</td>
+		<td>
+			jQuery selector
+		</td>
+		<td>
+			Closest html node, that contains element (including label)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			inputlabel
+		</td>
+		<td>
+			jQuery selector
+		</td>
+		<td>
+			Element label
+		</td>
+	</tr>
+	<tr>
+		<td>
+			requiredClass
+		</td>
+		<td>
+			string
+		</td>
+		<td>
+			Css class that will be assigned to required element
+		</td>
+	</tr>
+	<tr>
+		<td>
+			visibilityfn
+		</td>
+		<td>
+			function(liveform, element, visible)
+		</td>
+		<td>
+			Function that does field (in)visibile
+		</td>
+	</tr>
+	<tr>
+		<td>
+			requiredfn
+		</td>
+		<td>
+			function(liveform, element, required)
+		</td>
+		<td>
+			Function that does field (non-)required
+		</td>
+	</tr>
+</table>
+	
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
