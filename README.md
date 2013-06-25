@@ -1,7 +1,7 @@
 Liveform 
 --------
 
-Is a jQuery plugin thah makes your forms live!
+Is a jQuery plugin that makes your forms live!
 
 See included examples for more info.
 
