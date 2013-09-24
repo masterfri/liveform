@@ -26,6 +26,7 @@ LiveForm = function(form, options)
 		requiredfn: function(lf, e, required) {
 			lf.setRequired(e, required);
 		},
+		libs: false,
 	}, options || {});
 	
 	function init() {
@@ -33,6 +34,9 @@ LiveForm = function(form, options)
 		T.funcscope.register('e', function(name) {
 			return T.varscope.findElement(name);
 		});
+		if (T.options.libs) {
+			T.funcscope.register(T.options.libs);
+		}
 		var dep = $(T.form).find('[data-visibility],[data-required],[data-formula]');
 		dep.each(function() {
 			addExpression('visibility', this);
@@ -191,6 +195,12 @@ LiveForm.prototype =
 		} else {
 			l.children('.' + this.options.requiredClass).remove();
 		}
+	},
+	isRequired: function(element) {
+		if (e = $.data(element, 'lf-required')) {
+			return e.evaluate();
+		}
+		return false;
 	},
 	setVisibility: function(element, visible)
 	{
@@ -367,6 +377,17 @@ FormElementScope.prototype =
 				var lf = $.data(this, 'liveform');
 				lf && lf.setVisibility(elem(lf, name), true);
 			});
+		},
+		getIsRequired: function(name) {
+			var result = false;
+			$(this).each(function() {
+				var lf = $.data(this, 'liveform');
+				if (lf) {
+					result = lf.isRequired(elem(lf, name).get(0));
+					return false;
+				}
+			});
+			return result;
 		},
 		required: function(name) {
 			$(this).each(function() {
